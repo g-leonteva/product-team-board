@@ -165,6 +165,14 @@ wss.on('connection', (ws) => {
                     // Broadcast user activity (e.g., who's online, who's typing)
                     broadcast({ type: 'USER_ACTIVITY', payload: msg.payload }, ws);
                     break;
+
+                case 'DELETE_MEMBER':
+                    // Remove member from team
+                    data.teamMembers = data.teamMembers.filter(m => m.name !== msg.payload.name);
+                    writeData(data);
+                    broadcast({ type: 'MEMBER_DELETED', payload: msg.payload });
+                    ws.send(JSON.stringify({ type: 'MEMBER_DELETED', payload: msg.payload }));
+                    break;
             }
         } catch (error) {
             console.error('Error processing message:', error);
