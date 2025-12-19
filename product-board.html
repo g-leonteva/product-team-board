@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Team Board</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Product Team Board 🎄</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0f0f0f;
-            --bg-secondary: #1a1a1a;
-            --bg-tertiary: #252525;
-            --bg-card: #1e1e1e;
-            --text-primary: #f5f5f5;
-            --text-secondary: #a0a0a0;
-            --text-muted: #666;
-            --accent-coral: #ff6b6b;
-            --accent-mint: #4ecdc4;
-            --accent-gold: #ffd93d;
-            --accent-lavender: #a29bfe;
-            --accent-peach: #fab1a0;
-            --border-subtle: rgba(255,255,255,0.08);
-            --shadow-glow: 0 0 40px rgba(78, 205, 196, 0.15);
-            --column-todo: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --column-progress: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --column-done: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --bg-primary: #fafbfc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f0f3f9;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a5568;
+            --text-muted: #9ca3af;
+            --accent-purple: #7c3aed;
+            --accent-pink: #ec4899;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --border-light: rgba(0,0,0,0.08);
+            --shadow-soft: 0 2px 8px rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.06);
+            --shadow-hover: 0 8px 30px rgba(124, 58, 237, 0.15), 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-glow: 0 0 40px rgba(124, 58, 237, 0.2);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --gradient-card: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+            --column-todo: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+            --column-progress: linear-gradient(135deg, #fb7185 0%, #f472b6 100%);
+            --column-done: linear-gradient(135deg, #34d399 0%, #10b981 100%);
         }
 
         * {
@@ -33,23 +39,64 @@
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: auto;
         }
 
-        /* Animated background */
+        /* Animated gradient background */
         .bg-pattern {
             position: fixed;
             inset: 0;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(78, 205, 196, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(162, 155, 254, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+                linear-gradient(180deg, #fafbfc 0%, #f0f3f9 100%);
             pointer-events: none;
             z-index: 0;
+        }
+
+        /* Floating shapes decoration */
+        .bg-shapes {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-shapes::before,
+        .bg-shapes::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-shapes::before {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(236, 72, 153, 0.1));
+            top: -100px;
+            right: -100px;
+        }
+
+        .bg-shapes::after {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.1));
+            bottom: -50px;
+            left: -50px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(5deg); }
+            66% { transform: translate(-20px, 20px) rotate(-5deg); }
         }
 
         .app-container {
@@ -66,32 +113,34 @@
             top: 1rem;
             right: 1rem;
             padding: 0.5rem 1rem;
-            border-radius: 20px;
+            border-radius: 50px;
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             z-index: 1000;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .connection-status.connected {
-            background: rgba(78, 205, 196, 0.15);
-            color: var(--accent-mint);
-            border: 1px solid rgba(78, 205, 196, 0.3);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(52, 211, 153, 0.15));
+            color: #059669;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
         }
 
         .connection-status.disconnected {
-            background: rgba(255, 107, 107, 0.15);
-            color: var(--accent-coral);
-            border: 1px solid rgba(255, 107, 107, 0.3);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(248, 113, 113, 0.15));
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
         .connection-status.connecting {
-            background: rgba(255, 217, 61, 0.15);
-            color: var(--accent-gold);
-            border: 1px solid rgba(255, 217, 61, 0.3);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.15));
+            color: #d97706;
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
         .status-dot {
@@ -106,19 +155,19 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
         }
 
         /* Header */
         header {
-            padding: 1.5rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-subtle);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
-            background: rgba(15, 15, 15, 0.8);
+            border-bottom: 1px solid var(--border-light);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -131,22 +180,34 @@
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--accent-mint), var(--accent-lavender));
-            border-radius: 10px;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .logo-icon svg {
+            width: 48px;
+            height: 48px;
         }
 
         .logo h1 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            background: linear-gradient(90deg, var(--text-primary), var(--text-secondary));
+            font-size: 1.3rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .user-profile {
@@ -160,48 +221,63 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 1rem;
-            background: var(--bg-tertiary);
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(236, 72, 153, 0.08));
+            border-radius: 50px;
             font-size: 0.85rem;
+            font-weight: 600;
             color: var(--text-secondary);
+            border: 1px solid rgba(124, 58, 237, 0.15);
         }
 
         .online-count {
-            color: var(--accent-mint);
-            font-weight: 600;
+            color: var(--accent-purple);
+            font-weight: 700;
         }
 
         .user-avatar {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            font-size: 1.1rem;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            border: 2px solid transparent;
+            border: 3px solid white;
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+            background: var(--bg-tertiary);
         }
 
         .user-avatar:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-glow);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-avatar-placeholder {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-secondary);
         }
 
         .user-name {
-            font-weight: 500;
-            color: var(--text-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .btn {
             padding: 0.6rem 1.2rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-family: inherit;
             font-size: 0.9rem;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -210,24 +286,27 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent-mint), #45b7aa);
-            color: var(--bg-primary);
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
         }
 
         .btn-ghost {
-            background: transparent;
+            background: white;
             color: var(--text-secondary);
-            border: 1px solid var(--border-subtle);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-soft);
         }
 
         .btn-ghost:hover {
             background: var(--bg-tertiary);
             color: var(--text-primary);
+            transform: translateY(-1px);
         }
 
         /* Board */
@@ -240,13 +319,14 @@
         }
 
         .column {
-            min-width: 340px;
-            max-width: 340px;
-            background: var(--bg-secondary);
-            border-radius: 16px;
+            min-width: 350px;
+            max-width: 350px;
+            background: var(--gradient-card);
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
-            border: 1px solid var(--border-subtle);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-soft);
             overflow: hidden;
         }
 
@@ -256,6 +336,7 @@
             justify-content: space-between;
             align-items: center;
             position: relative;
+            background: white;
         }
 
         .column-header::before {
@@ -264,7 +345,8 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 4px;
+            border-radius: 4px 4px 0 0;
         }
 
         .column[data-status="todo"] .column-header::before {
@@ -286,25 +368,26 @@
         }
 
         .column-title h2 {
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            color: var(--text-primary);
         }
 
         .task-count {
             background: var(--bg-tertiary);
-            padding: 0.25rem 0.6rem;
+            padding: 0.3rem 0.7rem;
             border-radius: 20px;
             font-size: 0.75rem;
-            font-weight: 500;
+            font-weight: 700;
             color: var(--text-secondary);
         }
 
         .add-task-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
             border: none;
             background: var(--bg-tertiary);
             color: var(--text-secondary);
@@ -313,13 +396,15 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 300;
         }
 
         .add-task-btn:hover {
-            background: var(--accent-mint);
-            color: var(--bg-primary);
-            transform: rotate(90deg);
+            background: var(--gradient-primary);
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
         }
 
         .column-content {
@@ -330,25 +415,26 @@
         }
 
         .column-content.drag-over {
-            background: rgba(78, 205, 196, 0.05);
+            background: linear-gradient(180deg, rgba(124, 58, 237, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
         }
 
         /* Task Cards */
         .task-card {
-            background: var(--bg-card);
-            border-radius: 12px;
+            background: white;
+            border-radius: 16px;
             padding: 1rem;
             margin-bottom: 0.75rem;
             cursor: grab;
             transition: all 0.2s ease;
-            border: 1px solid var(--border-subtle);
+            border: 1px solid var(--border-light);
             position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
 
         .task-card:hover {
-            border-color: rgba(255,255,255,0.15);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            border-color: rgba(124, 58, 237, 0.3);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
         }
 
         .task-card.dragging {
@@ -357,7 +443,8 @@
         }
 
         .task-card.done {
-            opacity: 0.6;
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-color: rgba(16, 185, 129, 0.2);
         }
 
         .task-card.done .task-title {
@@ -370,8 +457,8 @@
         }
 
         @keyframes highlightUpdate {
-            0%, 100% { border-color: var(--border-subtle); }
-            50% { border-color: var(--accent-mint); box-shadow: 0 0 20px rgba(78, 205, 196, 0.3); }
+            0%, 100% { border-color: var(--border-light); }
+            50% { border-color: var(--accent-purple); box-shadow: var(--shadow-glow); }
         }
 
         .task-header {
@@ -384,28 +471,9 @@
 
         .task-title {
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 600;
             line-height: 1.4;
             flex: 1;
-        }
-
-        .task-menu-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 0.25rem;
-            border-radius: 4px;
-            opacity: 0;
-            transition: all 0.2s;
-        }
-
-        .task-card:hover .task-menu-btn {
-            opacity: 1;
-        }
-
-        .task-menu-btn:hover {
-            background: var(--bg-tertiary);
             color: var(--text-primary);
         }
 
@@ -429,18 +497,24 @@
         }
 
         .mini-avatar {
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 600;
+            overflow: hidden;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: var(--bg-tertiary);
+        }
+
+        .mini-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .assignee-name {
             font-size: 0.8rem;
+            font-weight: 500;
             color: var(--text-secondary);
         }
 
@@ -456,6 +530,7 @@
             gap: 0.3rem;
             font-size: 0.8rem;
             color: var(--text-muted);
+            font-weight: 500;
         }
 
         .task-date {
@@ -468,7 +543,7 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(26, 26, 46, 0.6);
             backdrop-filter: blur(8px);
             display: flex;
             align-items: center;
@@ -485,13 +560,13 @@
         }
 
         .modal {
-            background: var(--bg-secondary);
-            border-radius: 20px;
+            background: white;
+            border-radius: 24px;
             width: 90%;
-            max-width: 500px;
+            max-width: 480px;
             max-height: 90vh;
             overflow-y: auto;
-            border: 1px solid var(--border-subtle);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.2);
             transform: scale(0.9) translateY(20px);
             transition: transform 0.3s ease;
         }
@@ -502,30 +577,39 @@
 
         .modal-header {
             padding: 1.5rem;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-light);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(236, 72, 153, 0.05));
         }
 
         .modal-header h3 {
             font-size: 1.2rem;
-            font-weight: 600;
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
         .modal-close {
-            background: none;
+            background: var(--bg-tertiary);
             border: none;
             color: var(--text-muted);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            padding: 0.25rem;
+            padding: 0.5rem;
             line-height: 1;
-            transition: color 0.2s;
+            transition: all 0.2s;
+            border-radius: 10px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-close:hover {
-            color: var(--text-primary);
+            background: var(--accent-red);
+            color: white;
         }
 
         .modal-body {
@@ -540,27 +624,29 @@
             display: block;
             margin-bottom: 0.5rem;
             font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.85rem 1rem;
             background: var(--bg-tertiary);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
+            border: 2px solid transparent;
+            border-radius: 12px;
             color: var(--text-primary);
             font-family: inherit;
             font-size: 0.95rem;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--accent-mint);
+            border-color: var(--accent-purple);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
         }
 
         .form-group textarea {
@@ -568,41 +654,104 @@
             resize: vertical;
         }
 
+        .avatar-preview {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-tertiary);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+        }
+
+        .avatar-preview-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .avatar-preview-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-preview-text {
+            flex: 1;
+        }
+
+        .avatar-preview-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .avatar-preview-text .animal-name {
+            font-weight: 700;
+            color: var(--accent-purple);
+        }
+
+        .btn-reroll {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-reroll:hover {
+            background: var(--accent-purple);
+            color: white;
+            border-color: var(--accent-purple);
+        }
+
         .color-picker {
             display: flex;
-            gap: 0.75rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
         }
 
         .color-option {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             border: 3px solid transparent;
+            box-shadow: var(--shadow-soft);
         }
 
         .color-option:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         .color-option.selected {
-            border-color: white;
-            box-shadow: 0 0 0 2px var(--bg-primary), 0 0 20px currentColor;
+            border-color: var(--text-primary);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
         }
 
         .modal-footer {
             padding: 1rem 1.5rem;
-            border-top: 1px solid var(--border-subtle);
+            border-top: 1px solid var(--border-light);
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            gap: 0.75rem;
+            background: var(--bg-tertiary);
+        }
+
+        .modal-footer-right {
+            display: flex;
             gap: 0.75rem;
         }
 
         /* Task Detail Modal */
         .task-detail-modal .modal {
-            max-width: 600px;
+            max-width: 560px;
         }
 
         .task-detail-content {
@@ -611,8 +760,9 @@
 
         .task-detail-title {
             font-size: 1.3rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
         .task-detail-description {
@@ -621,7 +771,7 @@
             margin-bottom: 1.5rem;
             padding: 1rem;
             background: var(--bg-tertiary);
-            border-radius: 10px;
+            border-radius: 12px;
         }
 
         .task-detail-info {
@@ -629,7 +779,7 @@
             gap: 2rem;
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .info-item {
@@ -645,11 +795,12 @@
 
         .comments-section h4 {
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--text-primary);
         }
 
         .comments-list {
@@ -662,7 +813,7 @@
             display: flex;
             gap: 0.75rem;
             padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-light);
         }
 
         .comment:last-child {
@@ -670,15 +821,19 @@
         }
 
         .comment-avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 600;
+            overflow: hidden;
             flex-shrink: 0;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .comment-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .comment-content {
@@ -694,7 +849,8 @@
 
         .comment-author {
             font-size: 0.85rem;
-            font-weight: 500;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .comment-time {
@@ -718,8 +874,8 @@
             flex: 1;
             padding: 0.75rem 1rem;
             background: var(--bg-tertiary);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
+            border: 2px solid transparent;
+            border-radius: 12px;
             color: var(--text-primary);
             font-family: inherit;
             font-size: 0.9rem;
@@ -727,28 +883,37 @@
 
         .add-comment input:focus {
             outline: none;
-            border-color: var(--accent-mint);
+            border-color: var(--accent-purple);
+            background: white;
         }
 
         .task-actions {
             display: flex;
             gap: 0.75rem;
             padding-top: 1rem;
-            border-top: 1px solid var(--border-subtle);
+            border-top: 1px solid var(--border-light);
         }
 
         .btn-danger {
-            background: var(--accent-coral);
+            background: linear-gradient(135deg, #ef4444, #f87171);
             color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
         }
 
         .btn-danger:hover {
-            background: #e55a5a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
         }
 
         .btn-success {
-            background: var(--accent-mint);
-            color: var(--bg-primary);
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
         }
 
         /* Team Members */
@@ -758,19 +923,17 @@
         }
 
         .team-member {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 2px solid var(--bg-primary);
-            margin-left: -8px;
+            overflow: hidden;
+            border: 3px solid white;
+            margin-left: -10px;
             transition: transform 0.2s, z-index 0.2s;
             cursor: pointer;
             position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: var(--bg-tertiary);
         }
 
         .team-member:first-child {
@@ -778,8 +941,14 @@
         }
 
         .team-member:hover {
-            transform: scale(1.15);
+            transform: scale(1.2);
             z-index: 10;
+        }
+
+        .team-member img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .team-member.online::after {
@@ -787,11 +956,11 @@
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 10px;
-            height: 10px;
-            background: var(--accent-mint);
+            width: 12px;
+            height: 12px;
+            background: var(--accent-green);
             border-radius: 50%;
-            border: 2px solid var(--bg-primary);
+            border: 2px solid white;
         }
 
         /* Empty State */
@@ -805,11 +974,12 @@
             width: 48px;
             height: 48px;
             margin-bottom: 0.75rem;
-            opacity: 0.3;
+            opacity: 0.4;
         }
 
         .empty-column p {
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         /* Live Activity Toast */
@@ -818,14 +988,14 @@
             bottom: 2rem;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-subtle);
+            background: white;
+            border: 1px solid var(--border-light);
             padding: 0.75rem 1.25rem;
-            border-radius: 12px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             z-index: 1000;
             opacity: 0;
             transition: all 0.3s ease;
@@ -837,8 +1007,8 @@
         }
 
         .activity-toast .mini-avatar {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
         }
 
         .activity-toast-text {
@@ -848,6 +1018,7 @@
 
         .activity-toast-text strong {
             color: var(--text-primary);
+            font-weight: 600;
         }
 
         /* Animations */
@@ -877,7 +1048,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: var(--bg-tertiary);
+            background: var(--border-light);
             border-radius: 3px;
         }
 
@@ -907,10 +1078,26 @@
                 right: 1rem;
             }
         }
+
+        /* Delete Account Button */
+        .btn-delete-account {
+            background: transparent;
+            color: var(--accent-red);
+            border: none;
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        .btn-delete-account:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="bg-pattern"></div>
+    <div class="bg-shapes"></div>
     
     <div class="connection-status connecting" id="connectionStatus">
         <span class="status-dot"></span>
@@ -925,17 +1112,60 @@
     <div class="app-container">
         <header>
             <div class="logo">
-                <div class="logo-icon">📋</div>
-                <h1>Product Team Board</h1>
+                <div class="logo-icon">
+                    <!-- Christmas Toucan SVG -->
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Santa Hat -->
+                        <ellipse cx="55" cy="12" rx="18" ry="8" fill="#c41e3a"/>
+                        <path d="M35 15 Q50 -5 75 15 L70 25 Q50 10 40 25 Z" fill="#c41e3a"/>
+                        <ellipse cx="38" cy="22" rx="6" ry="5" fill="white"/>
+                        <circle cx="78" cy="12" r="6" fill="white"/>
+                        <rect x="35" y="20" width="40" height="6" rx="2" fill="white"/>
+                        
+                        <!-- Toucan Body -->
+                        <ellipse cx="50" cy="60" rx="28" ry="32" fill="#1a1a2e"/>
+                        
+                        <!-- White Chest -->
+                        <ellipse cx="50" cy="68" rx="18" ry="22" fill="white"/>
+                        
+                        <!-- Beak -->
+                        <path d="M75 45 Q95 50 90 58 Q85 68 70 65 Q65 62 68 55 Z" fill="#f59e0b"/>
+                        <path d="M75 45 Q90 48 87 54 Q83 60 72 58 Z" fill="#ef4444"/>
+                        <path d="M87 54 Q90 58 88 62 Q85 65 80 63" fill="#10b981" stroke="#10b981" stroke-width="2"/>
+                        <circle cx="88" cy="58" r="2" fill="#1a1a2e"/>
+                        
+                        <!-- Eye -->
+                        <circle cx="62" cy="45" r="10" fill="white"/>
+                        <circle cx="64" cy="44" r="6" fill="#1a1a2e"/>
+                        <circle cx="66" cy="42" r="2" fill="white"/>
+                        
+                        <!-- Blue Eye Ring -->
+                        <circle cx="62" cy="45" r="8" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                        
+                        <!-- Feet -->
+                        <ellipse cx="42" cy="90" rx="8" ry="4" fill="#f59e0b"/>
+                        <ellipse cx="58" cy="90" rx="8" ry="4" fill="#f59e0b"/>
+                        
+                        <!-- Snowflakes decoration -->
+                        <text x="20" y="40" font-size="8" fill="#06b6d4">❄</text>
+                        <text x="80" y="80" font-size="6" fill="#06b6d4">❄</text>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Product Team Board</h1>
+                    <div class="logo-subtitle">🎄 Holiday Edition</div>
+                </div>
             </div>
             
             <div class="user-profile">
                 <div class="online-users">
-                    <span>👥</span>
+                    <span>✨</span>
                     <span><span class="online-count" id="onlineCount">1</span> online</span>
                 </div>
                 <div class="team-members" id="teamMembers"></div>
-                <div class="user-avatar" id="currentUserAvatar" onclick="openProfileModal()"></div>
+                <div class="user-avatar" id="currentUserAvatar" onclick="openProfileModal()">
+                    <span class="user-avatar-placeholder">?</span>
+                </div>
                 <span class="user-name" id="currentUserName">Set your name</span>
                 <button class="btn btn-ghost" onclick="openProfileModal()">Edit Profile</button>
             </div>
@@ -945,7 +1175,7 @@
             <div class="column" data-status="todo">
                 <div class="column-header">
                     <div class="column-title">
-                        <h2>To Do</h2>
+                        <h2>📋 To Do</h2>
                         <span class="task-count" id="todo-count">0</span>
                     </div>
                     <button class="add-task-btn" onclick="openAddTaskModal('todo')">+</button>
@@ -961,7 +1191,7 @@
             <div class="column" data-status="in-progress">
                 <div class="column-header">
                     <div class="column-title">
-                        <h2>In Progress</h2>
+                        <h2>🚀 In Progress</h2>
                         <span class="task-count" id="in-progress-count">0</span>
                     </div>
                     <button class="add-task-btn" onclick="openAddTaskModal('in-progress')">+</button>
@@ -977,7 +1207,7 @@
             <div class="column" data-status="done">
                 <div class="column-header">
                     <div class="column-title">
-                        <h2>Done</h2>
+                        <h2>✅ Done</h2>
                         <span class="task-count" id="done-count">0</span>
                     </div>
                     <button class="add-task-btn" onclick="openAddTaskModal('done')">+</button>
@@ -996,31 +1226,43 @@
     <div class="modal-overlay" id="profileModal">
         <div class="modal">
             <div class="modal-header">
-                <h3>Your Profile</h3>
+                <h3>🎨 Your Profile</h3>
                 <button class="modal-close" onclick="closeProfileModal()">&times;</button>
             </div>
             <div class="modal-body">
+                <div class="avatar-preview">
+                    <div class="avatar-preview-img" id="avatarPreview">
+                        <img src="" alt="Your avatar" id="avatarPreviewImg">
+                    </div>
+                    <div class="avatar-preview-text">
+                        <p>Your spirit animal: <span class="animal-name" id="animalName">Loading...</span></p>
+                        <button class="btn-reroll" onclick="rerollAvatar()">🎲 New Animal</button>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>Your Name</label>
                     <input type="text" id="profileName" placeholder="Enter your name...">
                 </div>
                 <div class="form-group">
-                    <label>Choose Your Color</label>
+                    <label>Profile Color</label>
                     <div class="color-picker" id="colorPicker">
-                        <div class="color-option" style="background: #ff6b6b" data-color="#ff6b6b"></div>
-                        <div class="color-option" style="background: #4ecdc4" data-color="#4ecdc4"></div>
-                        <div class="color-option" style="background: #ffd93d" data-color="#ffd93d"></div>
-                        <div class="color-option" style="background: #a29bfe" data-color="#a29bfe"></div>
-                        <div class="color-option" style="background: #fab1a0" data-color="#fab1a0"></div>
-                        <div class="color-option" style="background: #74b9ff" data-color="#74b9ff"></div>
-                        <div class="color-option" style="background: #55efc4" data-color="#55efc4"></div>
-                        <div class="color-option" style="background: #fd79a8" data-color="#fd79a8"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #667eea, #764ba2)" data-color="#7c3aed"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #f093fb, #f5576c)" data-color="#ec4899"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #4facfe, #00f2fe)" data-color="#06b6d4"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #43e97b, #38f9d7)" data-color="#10b981"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #fa709a, #fee140)" data-color="#f59e0b"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #a8edea, #fed6e3)" data-color="#f472b6"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #ff9a9e, #fecfef)" data-color="#fb7185"></div>
+                        <div class="color-option" style="background: linear-gradient(135deg, #667eea, #764ba2)" data-color="#6366f1"></div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="closeProfileModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
+                <button class="btn-delete-account" onclick="deleteAccount()" id="deleteAccountBtn" style="display: none;">🗑️ Delete Account</button>
+                <div class="modal-footer-right">
+                    <button class="btn btn-ghost" onclick="closeProfileModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1029,7 +1271,7 @@
     <div class="modal-overlay" id="addTaskModal">
         <div class="modal">
             <div class="modal-header">
-                <h3>Add New Task</h3>
+                <h3>✨ Add New Task</h3>
                 <button class="modal-close" onclick="closeAddTaskModal()">&times;</button>
             </div>
             <div class="modal-body">
@@ -1043,8 +1285,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-ghost" onclick="closeAddTaskModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="addTask()">Add Task</button>
+                <div></div>
+                <div class="modal-footer-right">
+                    <button class="btn btn-ghost" onclick="closeAddTaskModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="addTask()">Add Task</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1053,7 +1298,7 @@
     <div class="modal-overlay task-detail-modal" id="taskDetailModal">
         <div class="modal">
             <div class="modal-header">
-                <h3>Task Details</h3>
+                <h3>📝 Task Details</h3>
                 <button class="modal-close" onclick="closeTaskDetailModal()">&times;</button>
             </div>
             <div class="task-detail-content" id="taskDetailContent">
@@ -1063,6 +1308,30 @@
     </div>
 
     <script>
+        // Funny Animal Avatars - High quality animal photos
+        const ANIMAL_AVATARS = [
+            { url: 'https://images.unsplash.com/photo-1474511320723-9a56873571b7?w=200&h=200&fit=crop', name: 'Wise Owl' },
+            { url: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=200&h=200&fit=crop', name: 'Curious Hamster' },
+            { url: 'https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=200&h=200&fit=crop', name: 'Fancy Goldfish' },
+            { url: 'https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=200&h=200&fit=crop', name: 'Chill Turtle' },
+            { url: 'https://images.unsplash.com/photo-1474314170901-f351b68f544f?w=200&h=200&fit=crop', name: 'Derpy Cat' },
+            { url: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=200&h=200&fit=crop', name: 'Happy Doggo' },
+            { url: 'https://images.unsplash.com/photo-1459262838948-3e2de6c1ec80?w=200&h=200&fit=crop', name: 'Sleepy Panda' },
+            { url: 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=200&h=200&fit=crop', name: 'Goofy Llama' },
+            { url: 'https://images.unsplash.com/photo-1463852247062-1bbca38f7805?w=200&h=200&fit=crop', name: 'Majestic Lion' },
+            { url: 'https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?w=200&h=200&fit=crop', name: 'Dancing Penguin' },
+            { url: 'https://images.unsplash.com/photo-1598439210625-5067c578f3f6?w=200&h=200&fit=crop', name: 'Sassy Parrot' },
+            { url: 'https://images.unsplash.com/photo-1551085254-e96b210db58a?w=200&h=200&fit=crop', name: 'Zen Fox' },
+            { url: 'https://images.unsplash.com/photo-1485550409059-9afb054cada4?w=200&h=200&fit=crop', name: 'Fluffy Bunny' },
+            { url: 'https://images.unsplash.com/photo-1504006833117-8886a355efbf?w=200&h=200&fit=crop', name: 'Noble Husky' },
+            { url: 'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=200&h=200&fit=crop', name: 'Pug Life' },
+            { url: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=200&h=200&fit=crop', name: 'Tiny Hamster' },
+            { url: 'https://images.unsplash.com/photo-1606567595334-d39972c85dfd?w=200&h=200&fit=crop', name: 'Grumpy Cat' },
+            { url: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?w=200&h=200&fit=crop', name: 'Cool Doggo' },
+            { url: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?w=200&h=200&fit=crop', name: 'Cute Corgi' },
+            { url: 'https://images.unsplash.com/photo-1589883661923-6476cb0ae9f2?w=200&h=200&fit=crop', name: 'Sweet Koala' }
+        ];
+
         // WebSocket Connection
         let ws = null;
         let reconnectAttempts = 0;
@@ -1072,9 +1341,12 @@
         // State
         let currentUser = JSON.parse(localStorage.getItem('productBoardUser')) || {
             name: '',
-            color: '#4ecdc4'
+            color: '#7c3aed',
+            avatar: null,
+            animalName: ''
         };
 
+        let pendingAvatar = null;
         let tasks = [];
         let teamMembers = [];
         let onlineUsers = new Set();
@@ -1085,11 +1357,32 @@
         document.addEventListener('DOMContentLoaded', () => {
             connectWebSocket();
             if (!currentUser.name) {
+                assignRandomAvatar();
                 openProfileModal();
+            } else {
+                pendingAvatar = { url: currentUser.avatar, name: currentUser.animalName };
             }
             renderUser();
             setupColorPicker();
         });
+
+        // Random avatar assignment
+        function assignRandomAvatar() {
+            const randomIndex = Math.floor(Math.random() * ANIMAL_AVATARS.length);
+            pendingAvatar = ANIMAL_AVATARS[randomIndex];
+            updateAvatarPreview();
+        }
+
+        function rerollAvatar() {
+            assignRandomAvatar();
+        }
+
+        function updateAvatarPreview() {
+            if (pendingAvatar) {
+                document.getElementById('avatarPreviewImg').src = pendingAvatar.url;
+                document.getElementById('animalName').textContent = pendingAvatar.name;
+            }
+        }
 
         // WebSocket Connection
         function connectWebSocket() {
@@ -1105,7 +1398,6 @@
                 updateConnectionStatus('connected');
                 reconnectAttempts = 0;
                 
-                // Send user activity
                 if (currentUser.name) {
                     sendMessage('USER_ACTIVITY', {
                         type: 'join',
@@ -1147,13 +1439,13 @@
             
             switch (status) {
                 case 'connected':
-                    textEl.textContent = 'Live';
+                    textEl.textContent = '🟢 Live';
                     break;
                 case 'disconnected':
-                    textEl.textContent = 'Offline';
+                    textEl.textContent = '🔴 Offline';
                     break;
                 case 'connecting':
-                    textEl.textContent = 'Connecting...';
+                    textEl.textContent = '🟡 Connecting...';
                     break;
             }
         }
@@ -1188,7 +1480,6 @@
                         tasks[updateIndex] = msg.payload;
                         renderTasks();
                         highlightTask(msg.payload.id);
-                        // Refresh detail modal if open
                         if (currentViewingTaskId === msg.payload.id) {
                             openTaskDetail(msg.payload.id);
                         }
@@ -1237,6 +1528,11 @@
                 case 'USER_ACTIVITY':
                     handleUserActivity(msg.payload);
                     break;
+
+                case 'MEMBER_DELETED':
+                    teamMembers = teamMembers.filter(m => m.name !== msg.payload.name);
+                    renderTeamMembers();
+                    break;
             }
         }
 
@@ -1255,12 +1551,10 @@
             const avatar = document.getElementById('toastAvatar');
             const text = document.getElementById('toastText');
 
-            const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-            const textColor = isLightColor(user.color) ? '#000' : '#fff';
-
-            avatar.style.background = user.color;
-            avatar.style.color = textColor;
-            avatar.textContent = initials;
+            avatar.innerHTML = user.avatar ? 
+                `<img src="${user.avatar}" alt="${user.name}">` : 
+                `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:${user.color};color:white;font-weight:600;">${user.name.charAt(0)}</span>`;
+            
             text.innerHTML = `<strong>${escapeHtml(user.name)}</strong> ${action}`;
 
             toast.classList.add('show');
@@ -1295,6 +1589,18 @@
         function openProfileModal() {
             document.getElementById('profileModal').classList.add('active');
             document.getElementById('profileName').value = currentUser.name;
+            
+            // Show delete button only if user exists
+            document.getElementById('deleteAccountBtn').style.display = currentUser.name ? 'block' : 'none';
+            
+            // Set up avatar preview
+            if (currentUser.avatar) {
+                pendingAvatar = { url: currentUser.avatar, name: currentUser.animalName || 'Mystery Animal' };
+            } else if (!pendingAvatar) {
+                assignRandomAvatar();
+            }
+            updateAvatarPreview();
+            
             const colorOptions = document.querySelectorAll('.color-option');
             colorOptions.forEach(o => {
                 o.classList.toggle('selected', o.dataset.color === currentUser.color);
@@ -1315,13 +1621,16 @@
             }
 
             currentUser.name = name;
-            currentUser.color = selectedColor ? selectedColor.dataset.color : '#4ecdc4';
+            currentUser.color = selectedColor ? selectedColor.dataset.color : '#7c3aed';
+            currentUser.avatar = pendingAvatar ? pendingAvatar.url : null;
+            currentUser.animalName = pendingAvatar ? pendingAvatar.name : '';
             localStorage.setItem('productBoardUser', JSON.stringify(currentUser));
 
-            // Sync with server
             sendMessage('UPDATE_TEAM_MEMBER', {
                 name: currentUser.name,
-                color: currentUser.color
+                color: currentUser.color,
+                avatar: currentUser.avatar,
+                animalName: currentUser.animalName
             });
 
             sendMessage('USER_ACTIVITY', {
@@ -1333,30 +1642,57 @@
             closeProfileModal();
         }
 
+        function deleteAccount() {
+            if (!confirm('Are you sure you want to delete your account? This will remove you from the team list.')) {
+                return;
+            }
+
+            sendMessage('DELETE_MEMBER', { name: currentUser.name });
+
+            // Clear local storage
+            localStorage.removeItem('productBoardUser');
+            
+            // Reset user
+            currentUser = {
+                name: '',
+                color: '#7c3aed',
+                avatar: null,
+                animalName: ''
+            };
+
+            renderUser();
+            closeProfileModal();
+            
+            // Assign new avatar for next registration
+            assignRandomAvatar();
+            openProfileModal();
+        }
+
         function renderUser() {
             const avatar = document.getElementById('currentUserAvatar');
             const userName = document.getElementById('currentUserName');
             
             if (currentUser.name) {
-                const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                avatar.textContent = initials;
-                avatar.style.background = currentUser.color;
-                avatar.style.color = isLightColor(currentUser.color) ? '#000' : '#fff';
+                if (currentUser.avatar) {
+                    avatar.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}">`;
+                } else {
+                    avatar.innerHTML = `<span class="user-avatar-placeholder">${currentUser.name.charAt(0).toUpperCase()}</span>`;
+                }
                 userName.textContent = currentUser.name;
             } else {
-                avatar.textContent = '?';
-                avatar.style.background = '#666';
+                avatar.innerHTML = `<span class="user-avatar-placeholder">?</span>`;
                 userName.textContent = 'Set your name';
             }
         }
 
         function renderTeamMembers() {
             const container = document.getElementById('teamMembers');
-            container.innerHTML = teamMembers.slice(0, 5).map(member => `
-                <div class="team-member ${onlineUsers.has(member.name) ? 'online' : ''}" 
-                     style="background: ${member.color}; color: ${isLightColor(member.color) ? '#000' : '#fff'}" 
-                     title="${member.name}">
-                    ${member.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
+            container.innerHTML = teamMembers.slice(0, 6).map(member => `
+                <div class="team-member ${onlineUsers.has(member.name) ? 'online' : ''}" title="${member.name} (${member.animalName || 'Team Member'})">
+                    ${member.avatar ? 
+                        `<img src="${member.avatar}" alt="${member.name}">` : 
+                        `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:${member.color};color:white;font-weight:600;">${member.name.charAt(0)}</span>`
+                    }
                 </div>
             `).join('');
         }
@@ -1396,13 +1732,13 @@
                 status: currentAddTaskStatus,
                 assignee: {
                     name: currentUser.name,
-                    color: currentUser.color
+                    color: currentUser.color,
+                    avatar: currentUser.avatar
                 },
                 comments: [],
                 createdAt: new Date().toISOString()
             };
 
-            // Send to server
             sendMessage('ADD_TASK', task);
             closeAddTaskModal();
         }
@@ -1432,8 +1768,6 @@
         }
 
         function renderTaskCard(task) {
-            const initials = task.assignee.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-            const textColor = isLightColor(task.assignee.color) ? '#000' : '#fff';
             const date = new Date(task.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             
             return `
@@ -1448,8 +1782,11 @@
                     ${task.description ? `<div class="task-description">${escapeHtml(task.description).slice(0, 100)}${task.description.length > 100 ? '...' : ''}</div>` : ''}
                     <div class="task-footer">
                         <div class="task-assignee">
-                            <div class="mini-avatar" style="background: ${task.assignee.color}; color: ${textColor}">
-                                ${initials}
+                            <div class="mini-avatar">
+                                ${task.assignee.avatar ? 
+                                    `<img src="${task.assignee.avatar}" alt="${task.assignee.name}">` : 
+                                    `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:${task.assignee.color};color:white;font-size:0.7rem;font-weight:600;">${task.assignee.name.charAt(0)}</span>`
+                                }
                             </div>
                             <span class="assignee-name">${escapeHtml(task.assignee.name)}</span>
                         </div>
@@ -1505,8 +1842,6 @@
             const task = tasks.find(t => t.id === taskId);
             if (!task) return;
 
-            const initials = task.assignee.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-            const textColor = isLightColor(task.assignee.color) ? '#000' : '#fff';
             const date = new Date(task.createdAt).toLocaleDateString('en-US', { 
                 weekday: 'short', 
                 month: 'short', 
@@ -1524,8 +1859,11 @@
                 
                 <div class="task-detail-info">
                     <div class="info-item">
-                        <div class="mini-avatar" style="background: ${task.assignee.color}; color: ${textColor}">
-                            ${initials}
+                        <div class="mini-avatar">
+                            ${task.assignee.avatar ? 
+                                `<img src="${task.assignee.avatar}" alt="${task.assignee.name}">` : 
+                                `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:${task.assignee.color};color:white;font-size:0.7rem;font-weight:600;">${task.assignee.name.charAt(0)}</span>`
+                            }
                         </div>
                         <span>${escapeHtml(task.assignee.name)}</span>
                     </div>
@@ -1539,8 +1877,6 @@
                     <h4>💬 Comments (${task.comments.length})</h4>
                     <div class="comments-list">
                         ${task.comments.map(comment => {
-                            const cInitials = comment.author.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
-                            const cTextColor = isLightColor(comment.author.color) ? '#000' : '#fff';
                             const cDate = new Date(comment.createdAt).toLocaleDateString('en-US', { 
                                 month: 'short', 
                                 day: 'numeric',
@@ -1549,8 +1885,11 @@
                             });
                             return `
                                 <div class="comment">
-                                    <div class="comment-avatar" style="background: ${comment.author.color}; color: ${cTextColor}">
-                                        ${cInitials}
+                                    <div class="comment-avatar">
+                                        ${comment.author.avatar ? 
+                                            `<img src="${comment.author.avatar}" alt="${comment.author.name}">` : 
+                                            `<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:${comment.author.color};color:white;font-size:0.7rem;font-weight:600;">${comment.author.name.charAt(0)}</span>`
+                                        }
                                     </div>
                                     <div class="comment-content">
                                         <div class="comment-header">
@@ -1571,11 +1910,11 @@
                 
                 <div class="task-actions">
                     ${task.status !== 'done' ? `
-                        <button class="btn btn-success" onclick="markTaskDone('${task.id}')">✓ Mark as Done</button>
+                        <button class="btn btn-success" onclick="markTaskDone('${task.id}')">✅ Mark as Done</button>
                     ` : `
-                        <button class="btn btn-ghost" onclick="moveTaskBack('${task.id}')">↩ Move to In Progress</button>
+                        <button class="btn btn-ghost" onclick="moveTaskBack('${task.id}')">↩️ Move to In Progress</button>
                     `}
-                    <button class="btn btn-danger" onclick="deleteTask('${task.id}')">🗑 Delete</button>
+                    <button class="btn btn-danger" onclick="deleteTask('${task.id}')">🗑️ Delete</button>
                 </div>
             `;
 
@@ -1603,7 +1942,8 @@
                 text,
                 author: {
                     name: currentUser.name,
-                    color: currentUser.color
+                    color: currentUser.color,
+                    avatar: currentUser.avatar
                 },
                 createdAt: new Date().toISOString()
             };
@@ -1638,15 +1978,6 @@
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
-        }
-
-        function isLightColor(color) {
-            const hex = color.replace('#', '');
-            const r = parseInt(hex.substr(0, 2), 16);
-            const g = parseInt(hex.substr(2, 2), 16);
-            const b = parseInt(hex.substr(4, 2), 16);
-            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-            return brightness > 155;
         }
 
         // Close modals on escape key
